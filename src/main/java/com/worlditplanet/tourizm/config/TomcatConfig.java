@@ -4,7 +4,9 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.Ssl;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,8 +35,6 @@ public class TomcatConfig {
         return tomcat;
     }
 
-
-
     private Connector createHttpConnector() {
         Connector connector =
                 new Connector("org.apache.coyote.http11.Http11NioProtocol");
@@ -44,4 +44,19 @@ public class TomcatConfig {
         connector.setRedirectPort(443);
         return connector;
     }
+
+    /*@Bean
+    public EmbeddedServletContainerCustomizer containerCustomizer() {
+        return container -> {
+
+            Ssl ssl = new Ssl();
+            ssl.setKeyStore("classpath:keystore.p12");
+            ssl.setKeyStorePassword("G5c4z15");
+            ssl.setKeyStoreType("PKCS12");
+            ssl.setKeyAlias("t-route");
+            container.setSsl(ssl);
+
+            container.setPort(443);
+        };
+    }*/
 }
